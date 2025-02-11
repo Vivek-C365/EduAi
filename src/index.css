@@ -1,8 +1,13 @@
+@import "tailwindcss";
 #root {
-  width: 100vw;
   height: 100vh;
 }
 
 body {
   margin: 0;
+  background-color: #0b080c;
+  background-image: url("./assets/Backg.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
