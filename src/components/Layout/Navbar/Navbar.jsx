@@ -4,10 +4,14 @@ import {
   Collapse,
   Typography,
   Button,
+  Badge,
   IconButton,
 } from "@material-tailwind/react";
 import B_logo_black from "../../../assets/eduai.png"; // Ensure correct import
 import { Link, NavLink } from "react-router-dom";
+import Bell from "../../icons/Bell";
+import Search from "../../icons/Search";
+import Profilelist from "./NavComponents/ProfileList";
 
 export function NavbarDefault() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -38,37 +42,28 @@ export function NavbarDefault() {
   );
 
   return (
-    <Navbar className="backdrop-saturate-200 dark:bg-transparent dark:border-none dark:backdrop-blur-[164px] dark:text-white sticky top-2 z-40 mx-auto max-w-[1450px] px-4 py-2 lg:px-8 lg:py-4 text-dimblack">
+    <Navbar className="backdrop-saturate-200 dark:bg-transparent dark:border-none dark:backdrop-blur-[164px] dark:text-white sticky top-2 z-40 mx-auto max-w-[1450px] px-4 py-2 lg:px-8 lg:py-4 text-dimblack !pt-0 !pb-0">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
-          {/* Corrected class for dark mode inversion */}
           <img
             src={B_logo_black}
             alt="Brand Logo"
             className="w-10 filter invert dark:invert-0"
           />
         </Link>
-        <div className="hidden lg:block flex bg[#1F1F1F] w-50%">{navList}</div>
-        <div className="flex items-center gap-x-3">
-          <NavLink to="/Login">
-            <Button
-              variant="text"
-              size="sm"
-              className="hidden dark:text-white lg:inline-block"
-            >
-              <span>Log In</span>
-            </Button>
-          </NavLink>
-          <NavLink to="/SignUp">
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-              <span>Sign up</span>
-            </Button>
-          </NavLink>
+
+        <div className="hidden lg:block flex bg-[#1F1F1F] w-50% p-2.5 rounded-3xl">
+          {navList}
         </div>
+
+        <div className="flex items-center gap-x-3">
+          <Bell />
+
+          <Search />
+
+          <Profilelist />
+        </div>
+
         <IconButton
           variant="text"
           className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -106,22 +101,9 @@ export function NavbarDefault() {
           )}
         </IconButton>
       </div>
+
       <Collapse open={openNav}>
-        <div className="container mx-auto">
-          {navList}
-          <div className="flex items-center justify-center gap-x-1 dark:text-white">
-            <NavLink to="/Login">
-              <Button fullWidth variant="text" size="sm">
-                <span>Log In</span>
-              </Button>
-            </NavLink>
-            <NavLink to="/SignUp">
-              <Button fullWidth variant="gradient" size="sm">
-                <span>Sign Up</span>
-              </Button>
-            </NavLink>
-          </div>
-        </div>
+        <div className="container mx-auto">{navList}</div>
       </Collapse>
     </Navbar>
   );
