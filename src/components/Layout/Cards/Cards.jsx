@@ -6,7 +6,7 @@ const Cards = ({ title, children, icon, chatperson }) => (
     <Card
       style={{
         backgroundColor: "#0D0D0D",
-        color: "white",
+        color: "#A9A9A9",
         width: "30vw",
         border: "1px solid #7e7e7e69",
       }}

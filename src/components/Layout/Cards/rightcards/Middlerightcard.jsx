@@ -6,6 +6,7 @@ import {
   CoffeeOutlined,
 } from "@ant-design/icons";
 import { Avatar, Card, Tooltip, Button } from "antd";
+import CustomButton from "../../../Button/Button";
 
 const Middlerightcard = () => {
   const chatpeople = (
@@ -36,30 +37,48 @@ const Middlerightcard = () => {
       icon={<UserSwitchOutlined />}
       chatperson={chatpeople}
     >
-      <div className="flex justify-between">
-        <Card className="!p-0">
-          <div>
+      <div className="">
+        <Card className="!p-0 !bg-[#202025] !border-0 !rounded-lg !shadow-none !mt-0">
+          <div className="flex justify-between items-center">
             <div>
-              <h1>Physics Study Group</h1>
-              <span>Next Session in 2 hours</span>
+              <h1 className="text-[14px] text-[#FBBA61]">
+                Physics Study Group
+              </h1>
+              <span className="text-[12px] text-[#566272]">
+                Next Session in 2 hours
+              </span>
             </div>
             <div>
-              <Button type="primary">Primary Button</Button>
+              <Button
+                style={{
+                  background: "#474747a1",
+                  border: "none",
+                  boxShadow: "none",
+                  fontSize: "12px",
+                  padding: "12px",
+                  color: "#9ba8b9",
+                }}
+                type="primary"
+              >
+                4 online
+              </Button>
             </div>
           </div>
         </Card>
 
-        <div>
-          <p>Active Study Session Available</p>
+        <div className="mt-3 flex justify-between">
+          <div>
+            <p className="text-[#FBBA61] text-[12px] flex items-center">
+              Active Study Session Available
+            </p>
 
-          <p>
-            <span>
-              <CoffeeOutlined />
-            </span>
-            Join Quantum Physics Discussion
-          </p>
+            <p className="text-[#566272] text-[12px] flex items-center">
+              <CoffeeOutlined className="mr-2" />
+              Join Quantum Physics Discussion
+            </p>
+          </div>
 
-          <p>Join Study Group</p>
+          <CustomButton title={"Join Study Group"} />
         </div>
       </div>
     </Cards>

@@ -82,7 +82,6 @@ const Bottomrightcard = () => {
         style={{
           display: "flex",
           alignItems: "center",
-          borderTop: "1px solid #ddd",
           paddingTop: "10px",
         }}
       >
@@ -95,11 +94,12 @@ const Bottomrightcard = () => {
           style={{
             flex: 1,
             marginRight: "10px",
-            borderRadius: "20px",
+            borderRadius: "10px",
             backgroundColor: "#1f1f1f",
             color: "white",
             boxShadow: " none",
             border: "none",
+            height: "2.3rem"
           }}
         />
         <Button

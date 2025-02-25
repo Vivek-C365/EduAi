@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+#root {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100vh;
+}
+
 body {
   margin: 0;
   background-color: #090a09;
@@ -19,6 +26,39 @@ body {
   border: 1px solid #333 !important; /* Subtle border */
 }
 
+.Chat-ai-btn {
+  padding: 5px 20px;
+  background-color: #161515;
+  width: max-content;
+  border-radius: 10px;
+  color: #ee80a7;
+}
+
+.Study-Palnner-Head {
+  display: flex;
+  justify-content: space-between;
+  background-color: #161515;
+  color: #ad46ff;
+  padding: 4px 15px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+}
+
+.Study-Palnner-Body {
+  background-color: #161515;
+  padding: 2px 15px;
+  color: #7e7e7e;
+}
+
+.Priorities-list {
+  position: relative;
+  background: #161515;
+  padding: 10px 8px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
 .custom-dropdown .ant-dropdown-menu-item {
   color: white !important; /* Light text */
 }
@@ -31,31 +71,33 @@ body {
   padding: 10px !important;
 }
 
-.chat-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: #121212;
-  border-radius: 10px;
-}
-
 .message-input-container {
   display: flex;
   align-items: center;
-  flex-grow: 1;
-  background-color: #1e1e1e;
-  padding: 8px;
-  border-radius: 20px;
 }
 
 .message-input {
-  background-color: transparent;
+  background-color: #161515;
   border: none;
   color: white;
   flex-grow: 1;
+  padding: 10px;
 }
 
+.message-input:active,
+.message-input:focus,
+.message-input:hover {
+  background-color: #1f1f1f;
+  box-shadow: none;
+}
+
+.message-input::placeholder {
+  color: #777;
+}
+
+.message-input::-webkit-input-placeholder {
+  color: #777;
+}
 .send-button {
   background-color: #4a4a4a;
   color: white;

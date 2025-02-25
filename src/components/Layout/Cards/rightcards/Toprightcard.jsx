@@ -23,9 +23,11 @@ const Toprightcard = () => {
       <div className="flex justify-between ">
         <div>
           <h1>Top Priorities</h1>
-          <div>
+          <div className="Priorities-list">
             {Priorities.map((items, index) => (
-              <h1 key={index} className="text-[12px]">{items.title}</h1>
+              <h1 key={index} className="text-[12px]">
+                {items.title}
+              </h1>
             ))}
           </div>
         </div>
@@ -35,16 +37,17 @@ const Toprightcard = () => {
             <p>Streak goal: Study for 2 hrs per day</p>
           </div>
           <div>
-            <div className="flex">
+            <div className="flex justify-between items-center">
               <div>
                 <Flex gap="small" wrap>
                   <Progress
                     type="dashboard"
-                    style={{ color: "white" }}
                     percent={75}
-                    size={[80]}
+                    size={80}
                     strokeColor="#9981FF"
-                    className="text-white"
+                    format={(percent) => (
+                      <span style={{ color: "white" }}>{percent}%</span>
+                    )}
                   />
                 </Flex>
               </div>

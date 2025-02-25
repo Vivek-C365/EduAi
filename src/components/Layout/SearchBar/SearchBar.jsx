@@ -8,7 +8,7 @@ const MessageInput = () => {
         placeholder="Write a message"
         className="message-input"
       />
-      <Button type="primary" shape="circle" icon={<SendOutlined />} className="send-button" />
+      <Button type="primary"  shape="circle" icon={<SendOutlined />} className="send-button" />
     </div>
   );
 };
