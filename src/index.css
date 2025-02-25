@@ -16,6 +16,11 @@ body {
   background-position: center;
 }
 
+
+.navbar{
+  backdrop-filter: none !important;
+}
+
 .ant-card-head {
   min-height: 0 !important;
 }

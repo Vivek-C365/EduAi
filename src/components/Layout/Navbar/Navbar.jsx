@@ -42,7 +42,8 @@ export function NavbarDefault() {
   );
 
   return (
-    <Navbar className="backdrop-saturate-200 dark:bg-transparent dark:border-none dark:backdrop-blur-[164px] dark:text-white sticky top-2 z-40 mx-auto max-w-[1450px] px-4 py-2 lg:px-8 lg:py-4 text-dimblack !pt-0 !pb-0">
+<Navbar className="navbar !bg-transparent !shadow-none dark:border-none dark:text-white sticky top-2 z-40 mx-auto max-w-[1450px] px-4 py-2 lg:px-8 lg:py-4 text-dimblack !pt-0 !pb-0">
+
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Link to={"/"}>
           <img
