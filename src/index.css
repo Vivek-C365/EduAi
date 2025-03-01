@@ -16,8 +16,7 @@ body {
   background-position: center;
 }
 
-
-.navbar{
+.navbar {
   backdrop-filter: none !important;
 }
 
@@ -163,4 +162,114 @@ body {
   .quiz-card {
     width: 100%;
   }
+}
+
+.ant-modal-content,
+.ant-modal-header {
+  background-color: #26262f !important;
+  color: white !important;
+}
+
+.ant-modal-header .ant-modal-title {
+  color: white !important;
+}
+
+
+/* General Modal Styling */
+.modal {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 400px;
+  max-width: 90%;
+  border-radius: 10px;
+  padding: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  color: white;
+  text-align: center;
+  font-family: Arial, sans-serif;
+}
+
+/* User Modal (Top) */
+.user-modal {
+  top: 10%;
+  background: #1e1e2e;
+  border: 1px solid #7b61ff;
+}
+
+/* Response Modal (Bottom) */
+.response-modal {
+  top: 30%;
+  background: #292a36;
+  border: 1px solid #5c5f80;
+}
+
+/* Modal Content */
+.modal-content {
+  position: relative;
+  padding: 15px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  cursor: pointer;
+  color: #aaa;
+  font-size: 20px;
+}
+
+.close-btn:hover {
+  color: white;
+}
+
+/* Messages */
+.user-message {
+  font-size: 16px;
+  background: #D9D9D9;
+  color: #090a09;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.bot-message {
+  font-size: 16px;
+  background: #3b3b4f;
+  padding: 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+
+.loading-text {
+  font-size: 16px;
+  color: #aaa;
+}
+
+/* Search Bar */
+.search-bar {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.search-bar input {
+  width: 300px;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+}
+
+.search-bar button {
+  padding: 8px 12px;
+  margin-left: 10px;
+  border: none;
+  background: #7b61ff;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background: #5a47d4;
 }
