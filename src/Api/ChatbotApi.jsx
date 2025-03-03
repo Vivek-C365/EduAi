@@ -16,7 +16,6 @@ const Chatbot = () => {
     setIsUserModalOpen(true); // Show user message modal
     setLoading(true);
     setBotResponse(""); // Clear previous bot response
-
     try {
       const API_KEY = "";
       if (!API_KEY) throw new Error("Missing API key");
