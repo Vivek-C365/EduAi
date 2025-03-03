@@ -18,7 +18,7 @@ const Chatbot = () => {
     setBotResponse(""); // Clear previous bot response
 
     try {
-      const API_KEY = "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";
+      const API_KEY = "";
       if (!API_KEY) throw new Error("Missing API key");
 
       const response = await fetch(
