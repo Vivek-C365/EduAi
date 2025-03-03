@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Cards from "../Cards";
+import Card3D from "../../Card3D/Card3D";
 import { CommentOutlined, SendOutlined, UserOutlined } from "@ant-design/icons";
 import { Avatar, Tooltip, Input, Button } from "antd";
 
@@ -32,7 +32,7 @@ const Bottomrightcard = () => {
   };
 
   return (
-    <Cards title="Chat" icon={<CommentOutlined />}>
+    <Card3D title="Chat" icon={<CommentOutlined />}>
       {/* Chat messages */}
       <div
         className="chat-message-container"
@@ -99,7 +99,7 @@ const Bottomrightcard = () => {
             color: "white",
             boxShadow: " none",
             border: "none",
-            height: "2.3rem"
+            height: "2.3rem",
           }}
         />
         <Button
@@ -109,7 +109,7 @@ const Bottomrightcard = () => {
           onClick={sendMessage}
         />
       </div>
-    </Cards>
+    </Card3D>
   );
 };
 

@@ -7,8 +7,9 @@ const Leftcardlayout = () => {
   return (
     <div className="grid  gap-2">
       <Topleftcard />
-      <Middleleftcard />
+      <Middleleftcard/>
       <Bottomleftcard />
+       
     </div>
   );
 };

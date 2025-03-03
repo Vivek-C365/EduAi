@@ -10,16 +10,27 @@ import Aurora from "./components/Animations/Aurora";
 function App() {
   return (
     <>
-      <Aurora
-        colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-        blend={.5}
-        amplitude={1.5}
-        speed={0.5}
-        className="absolute top-0 left-0 w-full h-full"
-      />
-      <NavbarDefault />
-
-      
+      <div className="relative max-w-full w-full h-20">
+        <Aurora
+          colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
+          blend={0.5}
+          amplitude={1.5}
+          speed={0.5}
+          className="absolute top-0 left-0 w-full h-full"
+        />
+        <NavbarDefault />
+      </div>
+      <div className="flex m-4 h-full justify-between ">
+        <Leftcardlayout />
+        {/* <Canvas
+          className="!h-auto"
+          shadows
+          camera={{ position: [0, 2, 5], fov: 30 }}
+        >
+          <Experience />
+        </Canvas> */}
+        <Rightcardlayout />
+      </div>
       {/* <Chatbot /> */}
     </>
   );

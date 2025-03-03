@@ -1,4 +1,4 @@
-import Cards from "../Cards";
+import Card3D from "../../Card3D/Card3D";
 import {
   UserSwitchOutlined,
   AntDesignOutlined,
@@ -32,7 +32,7 @@ const Middlerightcard = () => {
   );
 
   return (
-    <Cards
+    <Card3D
       title="Study Groups & Friends"
       icon={<UserSwitchOutlined />}
       chatperson={chatpeople}
@@ -81,7 +81,7 @@ const Middlerightcard = () => {
           <CustomButton title={"Join Study Group"} />
         </div>
       </div>
-    </Cards>
+    </Card3D>
   );
 };
 

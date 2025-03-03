@@ -6,8 +6,8 @@ const Rightcardlayout = () => {
   return (
     <div className="grid  gap-2">
       <Toprightcard />
-      <Middlerightcard />
-      <Bottomrightcard />
+      <Middlerightcard/>
+      <Bottomrightcard/>
     </div>
   );
 };

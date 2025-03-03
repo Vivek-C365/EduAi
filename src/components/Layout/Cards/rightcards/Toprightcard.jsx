@@ -1,4 +1,4 @@
-import Cards from "../Cards";
+import Card3D from "../../Card3D/Card3D";
 import {
   TagsOutlined,
   AntDesignOutlined,
@@ -19,7 +19,7 @@ const Toprightcard = () => {
     },
   ];
   return (
-    <Cards title="Goals" icon={<TagsOutlined />}>
+    <Card3D title="Goals" icon={<TagsOutlined />}>
       <div className="flex justify-between ">
         <div>
           <h1>Top Priorities</h1>
@@ -73,7 +73,7 @@ const Toprightcard = () => {
           </div>
         </div>
       </div>
-    </Cards>
+    </Card3D>
   );
 };
 

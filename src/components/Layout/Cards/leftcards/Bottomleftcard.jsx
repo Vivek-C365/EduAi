@@ -1,6 +1,7 @@
 import Button from "../../../Button/Button";
-import Cards from "../Cards";
+import Card3D from "../../Card3D/Card3D";
 import { CalendarOutlined } from "@ant-design/icons";
+import AnimatedList from "../../../Animations/AnimatedList";
 
 const Bottomleftcard = () => {
   const data = [
@@ -17,27 +18,37 @@ const Bottomleftcard = () => {
       time: "5:00 PM",
     },
   ];
-
+  const items = [
+    "Item 1",
+    "Item 2",
+    "Item 3",
+    "Item 4",
+    "Item 5",
+    "Item 6",
+    "Item 7",
+    "Item 8",
+    "Item 9",
+    "Item 10",
+  ];
   return (
-    <Cards
+    <Card3D
       title="Your Study Plan Today"
       className="pt-0"
       icon={<CalendarOutlined />}
       chatperson={<Button title={"View full Schedule"} />}
     >
-      <div className="Study-Palnner-Head">
+      <div className="Study-Palnner-Head flex flex-col gap-2">
         <h4>Today's Focus</h4>
-        <span>{data.length} Tasks</span>
+        <AnimatedList
+          items={items}
+          onItemSelect={(item, index) => console.log(item, index)}
+         
+          enableArrowNavigation={true}
+          displayScrollbar={true}
+          className="flex justify-between Study-Palnner-Body"
+        />
       </div>
-      <div className="flex flex-col gap-0.5">
-        {data.map((item, index) => (
-          <div className="flex justify-between Study-Palnner-Body">
-            <h1 key={index}>{item.title}</h1>
-            <span key={index}>{item.time}</span>
-          </div>
-        ))}
-      </div>
-    </Cards>
+    </Card3D>
   );
 };
 
