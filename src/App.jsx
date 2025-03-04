@@ -1,4 +1,3 @@
-import { Canvas } from "@react-three/fiber";
 import { Experience } from "./components/Experience";
 import NavbarDefault from "./components/Layout/Navbar/Navbar";
 import Leftcardlayout from "./components/Layout/Cards/Leftcardlayout";
@@ -20,15 +19,9 @@ function App() {
         />
         <NavbarDefault />
       </div>
-      <div className="flex m-4 h-full justify-between ">
+      <div className="flex m-4 h-full ">
         <Leftcardlayout />
-        {/* <Canvas
-          className="!h-auto"
-          shadows
-          camera={{ position: [0, 2, 5], fov: 30 }}
-        >
-          <Experience />
-        </Canvas> */}
+        <Experience />
         <Rightcardlayout />
       </div>
       {/* <Chatbot /> */}

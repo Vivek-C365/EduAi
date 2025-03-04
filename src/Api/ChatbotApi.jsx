@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Button, Input, Modal, Spin } from "antd";
-import SearchBar from "../components/Layout/SearchBar/SearchBar"
 
 const Chatbot = () => {
   const [chatHistory, setChatHistory] = useState([]);
@@ -54,13 +53,21 @@ const Chatbot = () => {
   return (
     <div style={{ textAlign: "center", marginTop: "20px" }}>
       {/* Search Bar (Input Field) */}
-      <Input.Search
+      <Input
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Ask something..."
-        enterButton="Send"
-        onSearch={handleSendMessage}
-        style={{ width: "400px", marginBottom: "20px" }}
+        placeholder="Ask Edu Ai..."
+        onPressEnter={handleSendMessage} // Triggers on pressing Enter
+        style={{
+          width: "100%",
+          marginBottom: "20px",
+          height: "50px",
+          backgroundColor: "#1a1a1a",
+          color: "white",
+          border: "1px solid #9e9e9e52",
+          borderRadius: "50px",
+        }}
+        className="custom-input"
       />
 
       {/* First Modal: User Message */}
@@ -71,7 +78,9 @@ const Chatbot = () => {
         footer={null}
         style={{ top: 100 }} // Position at top
       >
-        <p><strong>You:</strong> {message}</p>
+        <p>
+          <strong>You:</strong> {message}
+        </p>
       </Modal>
 
       {/* Second Modal: Bot Response */}
@@ -82,7 +91,13 @@ const Chatbot = () => {
         footer={null}
         style={{ top: 200 }} // Positioned below the first modal
       >
-        {loading ? <Spin /> : <p><strong>Bot:</strong> {botResponse}</p>}
+        {loading ? (
+          <Spin />
+        ) : (
+          <p>
+            <strong>Bot:</strong> {botResponse}
+          </p>
+        )}
       </Modal>
     </div>
   );

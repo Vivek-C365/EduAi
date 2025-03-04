@@ -1,11 +1,8 @@
 import React, { useRef, useEffect } from "react";
 import { gsap } from "gsap";
 import SpotlightCard from "../../Animations/SpotlightCard";
-const Card3D = ({
-  title,
-  children,
-  icon,
-}) => {
+
+const Card3D = ({ title, children, icon }) => {
   const cardRef = useRef(null);
   const titleRef = useRef(null);
   const shineRef = useRef(null);
@@ -48,6 +45,9 @@ const Card3D = ({
       rotationX: -mouseY * 15,
       rotationY: mouseX * 15,
       scale: 1.05,
+      transformPerspective: 1000,
+      willChange: "transform",
+      force3D: true,
       duration: 0.2,
     });
 
@@ -55,13 +55,13 @@ const Card3D = ({
       rotationY: mouseX * 1.2,
       rotationX: -mouseY * 0.5,
       z: 50,
-      x: mouseX * 10,
+      x: Math.round(mouseX * 10),
       duration: 0.3,
     });
 
     gsap.to(shine, {
       opacity: 0.1,
-      rotate: mouseX * 10,
+      rotate: Math.round(mouseX * 10),
       duration: 0.3,
     });
   };
@@ -76,7 +76,14 @@ const Card3D = ({
 
     gsap.killTweensOf([card, titleElement, childrenElement, shine]);
 
-    gsap.to(card, { rotationX: 0, rotationY: 0, scale: 1, duration: 0.5 });
+    gsap.to(card, {
+      rotationX: 0,
+      rotationY: 0,
+      scale: 1,
+      transformPerspective: 1000,
+      willChange: "auto",
+      duration: 0.5,
+    });
 
     gsap.to([titleElement, childrenElement], {
       rotationY: 0,
@@ -90,25 +97,26 @@ const Card3D = ({
   };
 
   return (
-    <SpotlightCard className="custom-spotlight-card" spotlightColor="#301E47">
+    <SpotlightCard className="custom-spotlight-card w-max" spotlightColor="#301E47">
       <div
         ref={cardRef}
         className="relative w-96 h-[27vh] rounded-xl overflow-hidden shadow-xl cursor-pointer"
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
+        style={{ willChange: "transform", transform: "translateZ(0)" }}
       >
         {/* Gradient Overlay */}
         <div className="absolute inset-0">
-          <div className={`absolute inset-0  opacity-70`}></div>
+          <div className="absolute inset-0 opacity-70"></div>
         </div>
 
         {/* Content */}
-        <div className="absolute inset-0 p-2.5 flex flex-col text-white !bg-transparent rounded-xl ">
-          <div className="max-w-[22vw] mx-auto flex flex-col justify-between h-full ">
+        <div className="absolute inset-0 p-2.5 flex flex-col text-white !bg-transparent rounded-xl">
+          <div className=" mx-auto flex flex-col justify-between h-full w-full">
             {/* Icon & Title */}
             <div className="flex items-center gap-2.5">
               {icon}
-              <h2 ref={titleRef} className="text-[14px] font-medium  relative">
+              <h2 ref={titleRef} className="text-[14px] font-medium relative">
                 {title}
               </h2>
             </div>
@@ -120,7 +128,10 @@ const Card3D = ({
             ></div>
 
             {/* Interactive Children */}
-            <div ref={childrenRef} className="mt-4 relative h-full flex flex-col justify-evenly">
+            <div
+              ref={childrenRef}
+              className="mt-4 relative h-full flex flex-col justify-evenly"
+            >
               {children}
             </div>
           </div>

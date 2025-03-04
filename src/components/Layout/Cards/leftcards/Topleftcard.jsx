@@ -36,7 +36,7 @@ const Topleftcard = () => {
           }}
         >
           <Button
-            className="mt-2 !bg-transparent !rounded-full !pr-0 !text-white hover:text-2xl flex !justify-between !h-auto"
+            className="mt-2 !bg-transparent !rounded-full !pr-0 !border-[#d9d9d917] !text-white hover:text-2xl flex !justify-between !h-auto"
             variant="outlined"
           >
             <ShinyText text="Chat with AI" disabled={false} speed={3} className='custom-class' />

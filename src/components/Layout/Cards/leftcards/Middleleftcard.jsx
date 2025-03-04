@@ -23,7 +23,7 @@ const Middleleftcard = () => {
         />
       </Flex>
       <div className="flex  gap-2 mt-3 items-center justify-between">
-        <p className="max-w-[15vw] text-[#7E7E7E] text-sm">
+        <p className=" text-[#7E7E7E] text-sm">
           Exceptional consistency! You've maintained peak performance for 5 days
           straight.
         </p>
