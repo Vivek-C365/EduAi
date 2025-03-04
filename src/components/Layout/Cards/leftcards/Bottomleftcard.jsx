@@ -45,7 +45,7 @@ const Bottomleftcard = () => {
          
           enableArrowNavigation={true}
           displayScrollbar={true}
-          className="flex justify-between Study-Palnner-Body"
+          className="flex justify-between Study-Palnner-Body max-w-full"
         />
       </div>
     </Card3D>

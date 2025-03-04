@@ -5,6 +5,7 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import { Flex, Progress, Avatar, Divider, Tooltip } from "antd";
+import AnimatedList from "../../../Animations/AnimatedList";
 
 const Toprightcard = () => {
   const Priorities = [
@@ -18,17 +19,32 @@ const Toprightcard = () => {
       title: "Finish studying for English exam",
     },
   ];
+
+  const items = [
+    "Item 1",
+    "Item 2",
+    "Item 3",
+    "Item 4",
+    "Item 5",
+    "Item 6",
+    "Item 7",
+    "Item 8",
+    "Item 9",
+    "Item 10",
+  ];
   return (
     <Card3D title="Goals" icon={<TagsOutlined />}>
       <div className="flex justify-between ">
         <div>
           <h1>Top Priorities</h1>
           <div className="Priorities-list">
-            {Priorities.map((items, index) => (
-              <h1 key={index} className="text-[12px]">
-                {items.title}
-              </h1>
-            ))}
+            <AnimatedList
+              items={items}
+              onItemSelect={(item, index) => console.log(item, index)}
+              enableArrowNavigation={true}
+              displayScrollbar={true}
+              className="flex justify-between Study-Palnner-Body max-w-full Goals-List"
+            />
           </div>
         </div>
         <div>

@@ -47,22 +47,23 @@ body {
 .Study-Palnner-Head {
   display: flex;
   justify-content: space-between;
-  background-color: #161515;
   color: #ad46ff;
-  padding: 4px 15px;
   border-radius: 10px;
   margin-bottom: 8px;
 }
 
 .Study-Palnner-Body {
-  background-color: #161515;
   padding: 2px 15px;
   color: #7e7e7e;
 }
 
 .Priorities-list {
+  max-width: 10vw;
+  padding: 5px
+}
+
+.Goals-List {
   position: relative;
-  background: #161515;
   padding: 10px 8px;
   border-radius: 10px;
   display: flex;
