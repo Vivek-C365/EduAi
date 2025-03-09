@@ -7,7 +7,7 @@ import {
   Badge,
   IconButton,
 } from "@material-tailwind/react";
-import B_logo_black from "../../../assets/eduai.png"; // Ensure correct import
+import B_logo_black from "/eduaide_cube.png"; // Ensure correct import
 import { Link, NavLink } from "react-router-dom";
 import Bell from "../../icons/Bell";
 import Search from "../../icons/Search";

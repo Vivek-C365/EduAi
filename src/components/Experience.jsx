@@ -1,6 +1,14 @@
 import { Avatar } from "./Avatar";
 import { Canvas } from "@react-three/fiber";
 import Chatbot from "../Api/ChatbotApi";
+import Spline from "@splinetool/react-spline";
+
+const Splinechar = () => {
+  return (
+    <Spline scene="https://prod.spline.design/QouV2IAel-56ksYd/scene.splinecode" />
+  );
+};
+
 export const Experience = () => {
   return (
     <>
@@ -16,7 +24,11 @@ export const Experience = () => {
             </group>
             <ambientLight intensity={2} />
           </Canvas>
+
         </div> */}
+        <div className="flex-1 character">
+          <Splinechar  />
+        </div>
         <div className="">
           <Chatbot />
         </div>
