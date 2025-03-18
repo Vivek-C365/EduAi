@@ -1,26 +1,6 @@
 import { useState } from "react";
-import {
-  format,
-  addDays,
-  parse,
-  startOfWeek,
-  getDay,
-  setHours,
-  setMinutes,
-} from "date-fns";
-import { Calendar as BigCalendar, dateFnsLocalizer } from "react-big-calendar";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import enUS from "date-fns/locale/en-US";
-
-const locales = { "en-US": enUS };
-
-const localizer = dateFnsLocalizer({
-  format,
-  parse,
-  startOfWeek: () => startOfWeek(new Date()),
-  getDay,
-  locales,
-});
+import { format, addDays } from "date-fns";
+import BigCalendarComponent from "./BigCalendarComponent";
 
 const Calendar = () => {
   const today = new Date();
@@ -30,7 +10,6 @@ const Calendar = () => {
   const [events, setEvents] = useState({});
   const [newTask, setNewTask] = useState("");
 
-  // Function to generate random tasks
   function generateTasks() {
     const taskOptions = [
       "Research",
@@ -41,11 +20,10 @@ const Calendar = () => {
     ];
     return taskOptions
       .sort(() => 0.5 - Math.random())
-      .slice(0, Math.floor(Math.random() * 3) + 1);
+      // .slice(0, Math.floor(Math.random() * 3) + 1);
   }
 
-  // Generate days with tasks
-  const days = Array.from({ length: 7 }, (_, i) => {
+  const days = Array.from({ length: 4 }, (_, i) => {
     const date = addDays(startDate, i);
     const fullDate = format(date, "yyyy-MM-dd");
 
@@ -57,28 +35,17 @@ const Calendar = () => {
     };
   });
 
-  // Convert tasks into calendar events
   const handleDateClick = (fullDate, tasks) => {
     setActiveDay(fullDate);
     setIsModalOpen(true);
-
-    const selectedDate = new Date(fullDate);
-    const taskEvents = tasks.map((task, index) => ({
-      title: task,
-      start: setHours(setMinutes(selectedDate, index * 30), 9), // 9:00 AM, 9:30 AM, etc.
-      end: setHours(setMinutes(selectedDate, index * 30 + 30), 9),
-    }));
-
     setEvents((prevEvents) => ({ ...prevEvents, [fullDate]: tasks }));
   };
 
-  // Handle adding new task
   const handleAddTask = () => {
     if (newTask.trim() === "") return;
 
     setEvents((prevEvents) => {
       const updatedTasks = [...(prevEvents[activeDay] || []), newTask];
-
       return { ...prevEvents, [activeDay]: updatedTasks };
     });
 
@@ -86,24 +53,11 @@ const Calendar = () => {
   };
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-md w-full max-w-2xl">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-xl font-bold text-gray-800">Upcoming Tasks</h1>
-      </div>
-      <div className="flex gap-4 items-center overflow-auto working-dates">
+    <div className="rounded-2xl w-full max-w-2xl">
+      <div className="flex gap-4 p-1.5 items-center justify-around overflow-auto working-dates">
         {days.map(({ day, name, fullDate, tasks }) => (
-          <div
-            key={fullDate}
-            className={`p-4 h-40 rounded-xl text-center cursor-pointer transition-all border-2 transform hover:scale-105 shadow-md ${
-              activeDay === fullDate
-                ? "bg-green-100 border-green-500"
-                : "border-transparent"
-            }`}
-            onClick={() => handleDateClick(fullDate, tasks)}
-          >
-            <div className="text-lg font-bold text-gray-800 mb-2">{day}</div>
-            <div className="text-sm text-gray-600 mb-3">{name}</div>
-            <div>
+          <div className="flex flex-col items-center h-36 justify-between gap-2" >
+            <div className="  overflow-y-auto flex flex-col items-center max-h-[2.7rem] scrollbar-hidden">
               {tasks.map((task, index) => (
                 <span
                   key={index}
@@ -119,11 +73,23 @@ const Calendar = () => {
                 </span>
               ))}
             </div>
+
+            <div
+              key={fullDate}
+              className={`p-[1rem] h-[5.5rem] rounded-[4rem] max-w-max text-center cursor-pointer transition-all bg-[#8080800a]  transform hover:scale-102 hover:bg-purple-100 ${
+                activeDay === fullDate
+                  ? "bg-green-100 border-green-500"
+                  : "border-transparent"
+              }`}
+              onClick={() => handleDateClick(fullDate, tasks)}
+            >
+              <div className="text-lg font-bold text-gray-800 mb-2">{day}</div>
+              <div className="text-sm text-gray-600 mb-3">{name}</div>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Modal for React Big Calendar */}
       {isModalOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-xl shadow-lg w-11/12 max-w-4xl">
@@ -139,7 +105,6 @@ const Calendar = () => {
               </button>
             </div>
 
-            {/* Add Task Input */}
             <div className="mb-4 flex gap-2">
               <input
                 type="text"
@@ -156,43 +121,7 @@ const Calendar = () => {
               </button>
             </div>
 
-            {/* React Big Calendar */}
-            <div className="h-[400px] overflow-hidden rounded-md">
-              <BigCalendar
-                localizer={localizer}
-                events={Object.entries(events).flatMap(([date, tasks]) =>
-                  tasks.map((task, index) => ({
-                    title: task,
-                    start: setHours(setMinutes(new Date(date), index * 30), 9),
-                    end: setHours(
-                      setMinutes(new Date(date), index * 30 + 30),
-                      9
-                    ),
-                  }))
-                )}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: "100%", color: "#333" }}
-                className="bg-white text-gray-800 p-4"
-              />
-              <BigCalendar
-                localizer={localizer}
-                events={Object.keys(events).flatMap((date) =>
-                  (events[date] || []).map((task, index) => ({
-                    title: task,
-                    start: setHours(setMinutes(new Date(date), index * 30), 9),
-                    end: setHours(
-                      setMinutes(new Date(date), index * 30 + 30),
-                      9
-                    ),
-                  }))
-                )}
-                startAccessor="start"
-                endAccessor="end"
-                style={{ height: "100%", color: "#333" }}
-                className="bg-white text-gray-800 p-4"
-              />
-            </div>
+            <BigCalendarComponent events={events} />
           </div>
         </div>
       )}

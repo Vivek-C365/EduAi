@@ -1,5 +1,5 @@
-import { Avatar } from "./Avatar";
-import { Canvas } from "@react-three/fiber";
+// import { Avatar } from "./Avatar";
+// import { Canvas } from "@react-three/fiber";
 import Chatbot from "../Api/ChatbotApi";
 import Spline from "@splinetool/react-spline";
 
@@ -28,6 +28,7 @@ export const Experience = () => {
         </div> */}
         <div className="flex-1 character">
           <Splinechar  />
+          {/* <iframe src='https://my.spline.design/nexbotrobotcharacterconcept-df748dba479665ca8682295292d1dfa0/' frameborder='0' width='100%' height='100%'></iframe> */}
         </div>
         <div className="">
           <Chatbot />

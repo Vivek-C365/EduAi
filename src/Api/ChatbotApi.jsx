@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react";
-import { Input, Modal, Spin } from "antd";
+import { useState } from "react";
+import { Input, Modal, Spin, message as AntMessage } from "antd";
 import { motion, AnimatePresence } from "framer-motion";
 import manthinkingvatar from "/manthinkingvatar.svg";
 import { LoadingOutlined } from "@ant-design/icons";
-import Calendar from "../components/Calendar/Calendar";
+import Topleftcard from "../components/Layout/Cards/leftcards/Topleftcard";
 
 const Chatbot = () => {
   const [message, setMessage] = useState("");
@@ -12,19 +12,30 @@ const Chatbot = () => {
   const [loading, setLoading] = useState(false);
   const [botResponse, setBotResponse] = useState("");
   const [specialAnimation, setSpecialAnimation] = useState(false);
-  const [timer, setTimer] = useState(5);
+  const [waitingForDate, setWaitingForDate] = useState(false);
+  const [calendarEvent, setCalendarEvent] = useState("");
+  const [calendar, setCalendar] = useState({}); // Stores scheduled events
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
+
+    // If waiting for date input, process it as a date instead
+    if (waitingForDate) {
+      handleDateInput(message);
+      return;
+    }
 
     setIsUserModalOpen(true);
     setBotResponse("");
     setIsBotModalOpen(true);
     setLoading(true);
 
-    // Check for special message
-    if (message.includes("calendar")) {
-      setSpecialAnimation(true);
+    if (message.toLowerCase().includes("add this to my calendar")) {
+      setBotResponse("Sure! What date should I schedule this for? 📅");
+      setWaitingForDate(true);
+      setCalendarEvent(message); // Store the event details
+      setLoading(false);
+      return;
     }
 
     try {
@@ -55,9 +66,42 @@ const Chatbot = () => {
       setBotResponse(botMessage);
     } catch (error) {
       setBotResponse("Something went wrong, please try again.");
+      console.log("Error:", error);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleDateInput = (date) => {
+    setWaitingForDate(false);
+
+    if (!isValidDate(date)) {
+      setBotResponse("Oops! That doesn't seem like a valid date. Try again.");
+      return;
+    }
+
+    setCalendar((prev) => ({ ...prev, [date]: calendarEvent }));
+    setBotResponse(`📅 Event added on ${date}: "${calendarEvent}"`);
+    AntMessage.success(`Event scheduled for ${date}`);
+
+    // Reset input field
+    setMessage("");
+    setCalendarEvent("");
+  };
+
+  const isValidDate = (date) => {
+    const regex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
+    return regex.test(date);
+  };
+
+  // Function to extract event name from user input
+  const extractEventName = (input) => {
+    const cleanedInput = input.replace(/add|to my schedule/gi, "").trim();
+
+    const words = cleanedInput.split(" ");
+    const eventName = words.slice(0, 3).join(" "); // Extracts up to 3 words
+
+    return eventName || "an event"; // Default if extraction fails
   };
 
   return (
@@ -66,7 +110,9 @@ const Chatbot = () => {
       <Input
         value={message}
         onChange={(e) => setMessage(e.target.value)}
-        placeholder="Ask Edu Ai..."
+        placeholder={
+          waitingForDate ? "Enter the date (YYYY-MM-DD)..." : "Ask Edu Ai..."
+        }
         onPressEnter={handleSendMessage}
         style={{
           width: "100%",
@@ -162,7 +208,7 @@ const Chatbot = () => {
                 style={{ top: 200, zIndex: 1001, marginRight: 0 }}
                 className="calendar-modal-special"
               >
-                <Calendar />
+                <Topleftcard />
               </Modal>
             </motion.div>
           )}
