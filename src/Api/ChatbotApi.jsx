@@ -15,6 +15,10 @@ const Chatbot = () => {
   const [waitingForDate, setWaitingForDate] = useState(false);
   const [calendarEvent, setCalendarEvent] = useState("");
   const [calendar, setCalendar] = useState({}); // Stores scheduled events
+  const [suggestedDates, setSuggestedDates] = useState([]); // Store suggested dates
+  const [waitingForTime, setWaitingForTime] = useState(false); // Wait for time input
+  const [selectedDate, setSelectedDate] = useState(""); // Stores selected date
+  const [selectedTime, setSelectedTime] = useState("");
 
   const handleSendMessage = async () => {
     if (!message.trim()) return;
@@ -30,39 +34,46 @@ const Chatbot = () => {
     setIsBotModalOpen(true);
     setLoading(true);
 
-    if (message.toLowerCase().includes("add this to my calendar")) {
-      setBotResponse("Sure! What date should I schedule this for? 📅");
+    if (message.toLowerCase().includes("schedule")) {
+      // Suggest some dates
+      const dates = getSuggestedDates();
+      setSuggestedDates(dates);
+      setBotResponse(
+        `Sure! Here are some dates you can choose from: ${dates.join(", ")}`
+      );
       setWaitingForDate(true);
       setCalendarEvent(message); // Store the event details
       setLoading(false);
       return;
     }
 
+    if (message.toLowerCase().includes("calendar")) {
+      setSpecialAnimation(true);
+      setLoading(false);
+      return;
+    }
+
     try {
-      const API_KEY = "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";
+      const API_KEY = "AIzaSyCtWBHsghRR094V6znk4mrNt83iojyUN0I";
       if (!API_KEY) throw new Error("Missing API key");
 
       const response = await fetch(
-        "https://api-inference.huggingface.co/models/tiiuae/falcon-7b-instruct",
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`,
         {
           method: "POST",
           headers: {
-            Authorization: `Bearer ${API_KEY}`,
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            inputs: message,
-            options: { use_cache: false, max_new_tokens: 180 },
+            contents: [{ parts: [{ text: message }] }],
           }),
         }
       );
 
       const data = await response.json();
       const botMessage =
-        Array.isArray(data) && data.length > 0 && data[0].generated_text
-          ? data[0].generated_text
-          : "No response from AI.";
-
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ||
+        "No response from AI.";
       setBotResponse(botMessage);
     } catch (error) {
       setBotResponse("Something went wrong, please try again.");
@@ -74,6 +85,7 @@ const Chatbot = () => {
 
   const handleDateInput = (date) => {
     setWaitingForDate(false);
+    setSuggestedDates([]);
 
     if (!isValidDate(date)) {
       setBotResponse("Oops! That doesn't seem like a valid date. Try again.");
@@ -83,25 +95,29 @@ const Chatbot = () => {
     setCalendar((prev) => ({ ...prev, [date]: calendarEvent }));
     setBotResponse(`📅 Event added on ${date}: "${calendarEvent}"`);
     AntMessage.success(`Event scheduled for ${date}`);
-
-    // Reset input field
+    storeEventInLocalStorage(calendarEvent);
     setMessage("");
     setCalendarEvent("");
   };
 
-  const isValidDate = (date) => {
-    const regex = /^\d{4}-\d{2}-\d{2}$/; // YYYY-MM-DD format
-    return regex.test(date);
+  const isValidDate = (date) => /^\d{4}-\d{2}-\d{2}$/.test(date);
+
+  const getSuggestedDates = () => {
+    const today = new Date();
+    return Array.from({ length: 5 }, (_, i) => {
+      const nextDate = new Date(today);
+      nextDate.setDate(today.getDate() + i + 1);
+      return nextDate.toISOString().split("T")[0];
+    });
   };
 
-  // Function to extract event name from user input
-  const extractEventName = (input) => {
-    const cleanedInput = input.replace(/add|to my schedule/gi, "").trim();
-
-    const words = cleanedInput.split(" ");
-    const eventName = words.slice(0, 3).join(" "); // Extracts up to 3 words
-
-    return eventName || "an event"; // Default if extraction fails
+  const storeEventInLocalStorage = (event) => {
+    const keyword = event.split(" ")[0];
+    const currentTime = new Date().toISOString();
+    localStorage.setItem(
+      "scheduledEvent",
+      JSON.stringify({ keyword, time: currentTime })
+    );
   };
 
   return (
