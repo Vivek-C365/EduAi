@@ -20,10 +20,11 @@ export function NavbarDefault() {
     { label: "Overview", link: "#" },
     { label: "My Tasks", link: "/blog" },
     { label: "A.I Buddy", link: "#" },
-    { label: "Calender", link: "#" },
+    { label: "Calendar", link: "#" },
     { label: "Analytics", link: "#" },
-    { label: "About EDUAI", link: "#" },
+    { label: "About EDUAI", link: "/about-eduai" },
   ];
+
 
   const navList = (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
@@ -32,14 +33,22 @@ export function NavbarDefault() {
           key={index}
           as="li"
           variant="small"
-          color="blue-gray"
-          className="flex items-center gap-x-2 p-1 font-medium"
+          color="white"
+          className="flex items-center gap-x-2 p-1 font-semibold"
         >
-          <NavLink to={item.link}>{item.label}</NavLink>
+          <NavLink
+            to={item.link}
+            className={({ isActive }) =>
+              `transition-all duration-200 transform ${isActive ? "text-white" : "hover:text-purple-500"}`
+            }
+          >
+            {item.label}
+          </NavLink>
         </Typography>
       ))}
     </ul>
   );
+  
 
   return (
     <Navbar className="navbar absolute !bg-transparent !shadow-none dark:border-none dark:text-white  top-2 z-40 mx-auto max-w-full px-4 py-2 lg:px-8 lg:py-4 text-dimblack !pt-0 !pb-0">
@@ -52,7 +61,7 @@ export function NavbarDefault() {
           />
         </Link>
 
-        <div className="hidden lg:block flex bg-[#1F1F1F] w-50% p-2.5 rounded-3xl">
+        <div className="hidden lg:block flex bg-[#202025] w-50% p-2.5 rounded-3xl">
           {navList}
         </div>
 
